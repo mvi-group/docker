@@ -73,13 +73,15 @@ RUN apt-get update && \
 
 # Install Odoo
 ENV ODOO_VERSION=20.0
-ARG ODOO_RELEASE=20260926
-ARG ODOO_SHA=7cb4a582ebe275a4f9c22eae24ce2bcb7fa27040
+ARG ODOO_RELEASE=20261005
+ARG ODOO_SHA=f12b45b59afa0c50d431d0f545c919cd99947226
 RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
     && echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \
     && apt-get update \
     && apt-get -y install --no-install-recommends ./odoo.deb \
     && rm -rf /var/lib/apt/lists/* odoo.deb
+# Copy Enterprise Edition
+COPY ./enterprise /mnt/enterprise
 
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /
