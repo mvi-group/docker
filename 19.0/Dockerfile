@@ -81,7 +81,7 @@ RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/od
     && apt-get -y install --no-install-recommends ./odoo.deb \
     && rm -rf /var/lib/apt/lists/* odoo.deb
 # Copy Enterprise Edition
-COPY ../enterprise /mnt/enterprise
+COPY ./enterprise /mnt/enterprise
 
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /
